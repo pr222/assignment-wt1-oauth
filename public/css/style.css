@@ -1,0 +1,249 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+}
+/* -------- Base styles -------- */
+html {
+    font-size: 16px;
+    color: #191d27;
+}
+body {
+    font-family: 'KoHo', sans-serif;
+    margin: 0 auto;
+    background-color: #e8e8e8;
+    height: 100%;
+}
+h1, h2, h3 {
+    font-family: 'KoHo', sans-serif; 
+    margin-top: 10px;
+}
+h1 {
+    font-size: 2.5rem;
+}
+h2 {
+    font-size: 1.75rem;
+}
+h3 {
+    font-size: 1.25rem;
+}
+p {
+    margin: 15px 2px;
+    align-self: center;
+}
+.center {
+    text-align: center;
+}
+.error {
+    margin-left: 50px;
+}
+/* --------  Links (except nagivation links) -------- */
+ul {
+    list-style: none;
+}
+nav a, main section h1 a, footer div ul a, h1 a  {
+  text-decoration: none;
+}
+/* Links  */
+a:link {
+    color: #446bbf;
+}
+a:hover, a:active {
+    color: #2712b1;
+}
+a:visited {
+    color: purple;
+}
+/* Headers in main section and courtesy nav */
+h1 a:link,  h1 a:visited, .courtesy a:link, .courtesy a:visited {
+    color: #191d27;
+}
+.courtesy a:hover, .courtesy a:active, h1 a:hover, h1 a:active  {
+    color: #1264B1;
+}
+/* Courtesy navigation */
+.courtesy ul {
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.courtesy ul li {
+    padding: 10px 10px;  
+    border-bottom: 2px solid #676767;
+}
+.courtesy li:hover {
+    background-color: #4646463a;
+}
+/* Main drop-down menu */
+.list {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    padding-right: 20px; 
+    padding-left: 15px;
+    background-color: #a2a2a2;
+}
+.list ul {
+      display: flex;
+      flex-direction: column;
+}
+.courtesy:hover .list{
+    display: block;
+}
+/* --- Styles for different parts of the page  --- */
+header {
+    background-color: rgb(220 220 220);
+}
+header h1 {
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Kumar One', cursive; 
+}
+main {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    padding: 0px 10px;
+}
+section {
+    padding-bottom: 20px;
+    margin-top: 30px;
+    border-bottom: dotted #212121;
+}
+main section p+p {
+    clear: both;
+}
+/* Contact form */
+fieldset {
+    border-style: none;
+    margin-top: 30px;
+}
+#name, #email, #message {
+    display: flex;
+    flex-direction: column; 
+    margin-bottom: 15px;   
+}
+button, input, textarea {
+    font-family: inherit;
+    font-size: 100%;
+}
+textarea {
+    width: 50%
+}
+input {
+    margin: 5px;
+}
+#send {
+    margin-top: 15px;
+}
+/* Flash messages styles */
+.flash {
+    display: block;
+    padding: 10px;
+    margin: 10px;
+    border: 3px solid #e4bfbf;
+}
+#success {
+    background-color: #59ff5024;
+    color: #1f2420;
+}
+#danger {
+    background-color: #ff444497;
+    color:#F6EFEF;
+}
+/* CRUD */
+#snippetInput {
+    display: flex;
+    flex-direction: column;
+}
+#snippetInput textarea{
+    width: 100%;
+}
+#snippetInput input {
+    margin-top: 5px;
+    padding: 2px;
+}
+#registerForm {
+    display: inline-flex;
+    flex-direction: column;
+}
+/*  -------- Images   --------  */
+img {
+    max-width: 100%;
+}
+#headerImg {
+    text-align: center;
+}
+#mob-logga {
+    display: none;
+}
+section img {
+    float: right;
+    margin: 15px;
+}
+img#itunes {
+    border-radius: 13px;
+    width: 300px;
+    height: 83px;
+}
+footer div.footerImg, section picture img{
+    margin: 0 auto;
+}
+footer div.footerImg:hover {
+    background-color: #0e36af31;
+    border-radius: 100px;
+}
+/*   Grid layout    */ 
+body {
+    display: grid;
+    grid-template-columns: 150px auto 150px;
+    grid-template-rows: min-content;
+    grid-template-areas: 
+    "header  header  header"
+    "nav     nav     nav"
+    "crumbs  crumbs  crumbs"
+    ".       main    ."
+    "footer  footer  footer";
+}
+header {
+    grid-area: header;
+}
+.mainNav {
+    grid-area: nav;
+}
+.breadcrumbs {
+    grid-area: crumbs;
+}
+.productMenu {
+    grid-area: crumbs;
+}
+main {
+    grid-area: main;
+}
+footer {
+    grid-area: footer;
+}
+/*    END of grid layout    */
+/* ------   Media queries ----- */
+@media screen and (max-width: 890px) {
+    body {
+        display: block;
+    }
+    header {
+        padding: 0px 20px;
+    }
+    main {
+        margin: 10px;
+    }
+    #frontpage {
+        font-size: 2.5rem;
+    }
+    footer div {
+        flex-direction: column;
+        width: 100%;
+    }
+    footer div.footerImg {
+        width: 20%;
+    }
+}
