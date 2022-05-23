@@ -1,7 +1,7 @@
 {
-  "name": "api-design-assignment",
+  "name": "assignment-wt1-oauth",
   "version": "1.0.0",
-  "description": "RESTful API design assignment",
+  "description": "Implementation of three-legged OAuth",
   "type": "module",
   "main": "src/server.js",
   "scripts": {
@@ -13,13 +13,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.lnu.se:1dv027/student/pr222ja/api-design-assignment.git"
+    "url": "git@gitlab.lnu.se:1dv027/student/pr222ja/assignment-wt1-oauth.git"
   },
   "keywords": [
-    "api",
-    "rest",
-    "restful",
-    "hateoas"
+    "oauth"
   ],
   "author": "Pauliina Raitaniemi",
   "license": "MIT",

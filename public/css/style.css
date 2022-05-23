@@ -168,6 +168,31 @@ input {
     display: inline-flex;
     flex-direction: column;
 }
+
+/*  -------- OAuth   --------  */
+
+#loginButton {
+    display: block;
+    width: 100%;
+    background-color: #9090908a;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 20px;
+}
+
+#loginButton:hover {
+    background-color: #99d2088a;
+    color: #000000;
+    cursor: pointer;
+}
+
+#loginButton:focus {
+    background-color: #99d2088a;
+    color: #000000;
+}
+
 /*  -------- Images   --------  */
 img {
     max-width: 100%;

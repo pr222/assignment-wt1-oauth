@@ -9,9 +9,14 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <main class="center">
+        <h1>{{viewData.header}}</h1>
+        <div>
+            <form method="POST" action=""> <!-- Add redirect URI as action -->
+                <input id="loginButton" type="submit" name="loginButton" value="Login">
+            </form>
+        </div>
 
-    <main>
-        <h1>Hello {{viewData}}</h1>
     </main>
 
 </body>
