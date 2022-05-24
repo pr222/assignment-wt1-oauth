@@ -8,3 +8,5 @@ const controller = new HomeController()
 router.get('/', (req, res, next) => controller.home(req, res, next))
 
 router.get('/login', (req, res, next) => controller.login(req, res, next))
+
+router.get('/callback', (req, res, next) => controller.callback(req, res, next))

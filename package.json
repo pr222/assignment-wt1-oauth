@@ -22,12 +22,15 @@
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "crypto-random-string": "^5.0.0",
     "express": "^4.17.3",
+    "express-session": "^1.17.3",
     "hbs": "^4.2.0",
     "helmet": "^5.0.2",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "node-fetch": "^3.2.4"
   },
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.5",
@@ -44,6 +47,6 @@
     "extends": "@lnu"
   },
   "nodemonConfig": {
-    "ext": "js,json,html,css"
+    "ext": "js,json,html,css,hbs"
   }
 }

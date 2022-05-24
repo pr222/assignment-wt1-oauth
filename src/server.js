@@ -1,4 +1,5 @@
 import express from 'express'
+import session from 'express-session'
 import helmet from 'helmet'
 import logger from 'morgan'
 import hbs from 'hbs'
@@ -44,14 +45,35 @@ const main = async () => {
   // Enable application/json.
   app.use(express.json())
 
-  // Routes.
-  app.use('/', router)
+  // Middlewares
+  const sessionOptions = {
+    name: process.env.SESSION_NAME,
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // 24 hours
+      httpOnly: true,
+      sameSite: 'lax'
+    }
+  }
+
+  if (app.get('env') === 'production') {
+    app.set('trust proxy', 1)
+    sessionOptions.cookie.secure = true
+  }
+
+  app.use(session(sessionOptions))
 
   // Set baseURL to access it in views
   app.use((req, res, next) => {
     res.locals.baseURL = baseURL
+    res.locals.session = req.session
     next()
   })
+
+  // Routes.
+  app.use('/', router)
 
   // Handle error responses.
   app.use(function (err, req, res, next) {
