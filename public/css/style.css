@@ -174,16 +174,17 @@ input {
 #loginButton {
     display: block;
     width: 100%;
-    background-color: #9090908a;
+    background-color: #fafafa;
     color: rgb(0, 0, 0);
     padding: 10px;
     padding-left: 20px;
     padding-right: 20px;
     margin-top: 20px;
+    text-decoration: none;
 }
 
 #loginButton:hover {
-    background-color: #99d2088a;
+    background-color: #99d20856;
     color: #000000;
     cursor: pointer;
 }

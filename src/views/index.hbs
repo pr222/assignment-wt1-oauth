@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Activities</title>
     <link href="https://fonts.googleapis.com/css2?family=Rokkitt&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
@@ -11,11 +11,10 @@
 <body>
     <main class="center">
         <h1>{{viewData.header}}</h1>
-        <div>
-            <form method="POST" action=""> <!-- Add redirect URI as action -->
-                <input id="loginButton" type="submit" name="loginButton" value="Login">
-            </form>
-        </div>
+
+        <section>
+            <a id="loginButton" href="{{baseURL}}/login">Login</a>
+        </section>
 
     </main>
 

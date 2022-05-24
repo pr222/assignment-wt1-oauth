@@ -14,7 +14,7 @@ const main = async () => {
   const PORT = process.env.PORT || 5000
 
   const fullDirectory = dirname(fileURLToPath(import.meta.url))
-  // const baseURL = process.env.BASE_URL || '/'
+  const baseURL = process.env.BASE_URL || '/'
 
   // Set logger.
   app.use(logger('dev'))
@@ -46,6 +46,12 @@ const main = async () => {
 
   // Routes.
   app.use('/', router)
+
+  // Set baseURL to access it in views
+  app.use((req, res, next) => {
+    res.locals.baseURL = baseURL
+    next()
+  })
 
   // Handle error responses.
   app.use(function (err, req, res, next) {
