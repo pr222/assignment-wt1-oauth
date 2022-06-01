@@ -45,7 +45,7 @@ const main = async () => {
   // Enable application/json.
   app.use(express.json())
 
-  // Middlewares
+  // // Middlewares
   const sessionOptions = {
     name: process.env.SESSION_NAME,
     secret: process.env.SESSION_SECRET,
@@ -65,10 +65,10 @@ const main = async () => {
 
   app.use(session(sessionOptions))
 
-  // Set baseURL to access it in views
+  // // Set baseURL to access it in views
   app.use((req, res, next) => {
     res.locals.baseURL = baseURL
-    res.locals.session = req.session
+    //   res.locals.session = req.session
     next()
   })
 
@@ -79,24 +79,24 @@ const main = async () => {
   app.use(function (err, req, res, next) {
     err.status = err.status || 500
 
-    if (req.app.get('env') !== 'development') {
-      return res
-        .status(err.status)
-        .json({
-          status: err.status,
-          message: err.message
-        })
+    // if (req.app.get('env') !== 'development') {
+    const error = {
+      status: err.status,
+      message: err.message
     }
+    console.log(error)
+    return res.render('error', { viewData: error })
+    // }
 
-    // Details only in dev.
-    return res
-      .status(err.status)
-      .json({
-        status: err.status,
-        message: err.message,
-        innerException: err.innerException,
-        stack: err.stack
-      })
+    // // Details only in dev.
+    // return res
+    //   .status(err.status)
+    //   .json({
+    //     status: err.status,
+    //     message: err.message,
+    //     innerException: err.innerException,
+    //     stack: err.stack
+    //   })
   })
 
   app.listen(PORT, () => {
