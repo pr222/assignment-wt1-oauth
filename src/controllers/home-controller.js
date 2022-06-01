@@ -1,4 +1,4 @@
-// import fetch from 'node-fetch'
+import fetch from 'node-fetch'
 import createHttpError from 'http-errors'
 import cryptoRandomString from 'crypto-random-string'
 
@@ -65,30 +65,32 @@ export class HomeController {
         next(createHttpError(401, 'Unauthorized'))
       }
 
-      // const code = req.query.code
+      const code = req.query.code
 
-      // const params = {
-      //   client_id: `${process.env.CLIENT_ID}`,
-      //   client_secret: `${process.env.CLIENT_SECRET}`,
-      //   code: `${code}`,
-      //   grant_type: 'authorization_code',
-      //   redirect_uri: `${process.env.REDIRECT_URI}`
-      // }
+      const params = {
+        client_id: `${process.env.CLIENT_ID}`,
+        client_secret: `${process.env.CLIENT_SECRET}`,
+        code: `${code}`,
+        grant_type: 'authorization_code',
+        redirect_uri: `${process.env.REDIRECT_URI}`
+      }
 
-      // const query = new URLSearchParams(params)
+      const query = new URLSearchParams(params)
 
-      // const request = await fetch(`${process.env.AUTH_URL}/oauth/token?${query}`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   }
-      // })
+      const request = await fetch(`${process.env.AUTH_URL}/oauth/token?${query}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
 
-      // const response = await request.json()
+      const response = await request.json()
 
-      // console.log(response)
+      await req.session.regenerate(() => {
+        req.session.token = response.access_token
 
-      // res.render('index', { viewData: { header: 'Callback' } })
+        res.redirect('/')
+      })
     } catch (error) {
       next(error)
     }
