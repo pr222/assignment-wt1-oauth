@@ -79,24 +79,24 @@ const main = async () => {
   app.use(function (err, req, res, next) {
     err.status = err.status || 500
 
-    // if (req.app.get('env') !== 'development') {
+    if (req.app.get('env') !== 'development') {
+      const error = {
+        status: err.status,
+        message: err.message
+      }
+
+      return res.render('error', { viewData: error })
+    }
+
+    // Details only in dev.
     const error = {
       status: err.status,
-      message: err.message
+      message: err.message,
+      innerException: err.innerException,
+      stack: err.stack
     }
-    console.log(error)
-    return res.render('error', { viewData: error })
-    // }
 
-    // // Details only in dev.
-    // return res
-    //   .status(err.status)
-    //   .json({
-    //     status: err.status,
-    //     message: err.message,
-    //     innerException: err.innerException,
-    //     stack: err.stack
-    //   })
+    return res.render('error', { viewData: error })
   })
 
   app.listen(PORT, () => {
