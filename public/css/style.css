@@ -214,8 +214,9 @@ img {
     display: none;
 }
 section img {
-    float: right;
+    float: left;
     margin: 15px;
+    width: 100px;
 }
 img#itunes {
     border-radius: 13px;

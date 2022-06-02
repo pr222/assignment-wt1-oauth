@@ -23,10 +23,11 @@ export class HomeController {
         const token = req.session.token
 
         // Get user data.
-        const userRequest = await fetch(`${process.env.AUTH_URL}/api/v4/user?access_token=${token}`, {
+        const userRequest = await fetch(`${process.env.AUTH_URL}/api/v4/user`, {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
           }
         })
         const userResponse = await userRequest.json()
@@ -42,11 +43,29 @@ export class HomeController {
 
         toView.user = user
 
-        // Get event data.
-        const eventRequest = await fetch(`${process.env.AUTH_URL}/api/v4/users/${userResponse.id}/events?page=1&order_by="created_at"&sort=desc&access_token=${token}`, {
+        // Handle pagination.
+        let currentPage
+
+        if (!req.query.page) {
+          currentPage = 1
+        } else {
+          currentPage = Number(req.query.page)
+        }
+
+        toView.currentPage = currentPage
+
+        if (currentPage > 1) {
+          toView.previousPage = currentPage - 1
+        }
+
+        toView.nextPage = currentPage + 1
+
+        // Get event data
+        const eventRequest = await fetch(`${process.env.AUTH_URL}/api/v4/users/${userResponse.id}/events?per_page=50&page=${currentPage}`, {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
           }
         })
         const eventResponse = await eventRequest.json()
@@ -60,12 +79,11 @@ export class HomeController {
             project_id: event.project_id,
             created_at: event.created_at.split('T')[0]
           }
-          console.log(event)
+
           events.push(slimmedEvent)
         })
 
         toView.events = events
-        console.log(toView)
       }
 
       res.render('index', { viewData: toView })

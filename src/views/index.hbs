@@ -14,24 +14,44 @@
 
         {{#if viewData.user}}
             <section>
+                <img src="{{viewData.user.avatar}}" alt="Profile picture">
                 <h1 class="center">Profile</h1>
-                    <img src="{{viewData.user.avatar}}" alt="Profile picture">
                     <ul>
                         <li>Name: {{viewData.user.name}}</li>
                         <li>Username: {{viewData.user.username}}</li>
                         <li>Email: {{viewData.user.email}}</li>
                         <li>Last Activity: {{viewData.user.last_activity_on}}</li>
                     </ul>
+            </section>
+            <p class="center">
+                {{#if viewData.previousPage}}
+                    <a href="/?page={{viewData.previousPage}}">Previous</a>
+                {{/if}}
+                - Current Page: {{viewData.currentPage}} - 
+                {{#if viewData.nextPage}}
+                    <a href="/?page={{viewData.nextPage}}">Next</a>
+                {{/if}}
+            </p>
+            <section>               
                 <h1 class="center">Activities</h1>
                 {{#each viewData.events}}
                     <h2>Activity</h2>
                     <ul>
                         <li>Action: {{action_name}}</li>
                         <li>Date: {{created_at}}</li>
-                        <li>Id: {{event_id}}</li>
-                        <li>Project: {{project_id}}</li>
+                        <li>Event id: {{event_id}}</li>
+                        <li>Project id: {{project_id}}</li>
                     </ul>
                 {{/each}}
+                <p class="center">
+                    {{#if viewData.previousPage}}
+                        <a href="/?page={{viewData.previousPage}}">Previous</a>
+                    {{/if}}
+                    - Current Page: {{viewData.currentPage}} - 
+                    {{#if viewData.nextPage}}
+                        <a href="/?page={{viewData.nextPage}}">Next</a>
+                    {{/if}}
+                </p>
             </section>
             <a id="logoutButton" href="/logout" class="center">Logout</a>
         {{else}}
