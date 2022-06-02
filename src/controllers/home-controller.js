@@ -15,10 +15,12 @@ export class HomeController {
    */
   async home (req, res, next) {
     try {
+      // Set default value to the view.
       const toView = {
         header: 'My Activities App'
       }
 
+      // With an active session, add all data to present to the view.
       if (req.session.token) {
         const token = req.session.token
 
@@ -41,9 +43,10 @@ export class HomeController {
           avatar: userResponse.avatar_url
         }
 
+        // Set user info to the view.
         toView.user = user
 
-        // Handle pagination.
+        // Handle pagination numbers.
         let currentPage
 
         if (!req.query.page) {
@@ -52,13 +55,13 @@ export class HomeController {
           currentPage = Number(req.query.page)
         }
 
+        // Set page values for the view.
         toView.currentPage = currentPage
+        toView.nextPage = currentPage + 1
 
         if (currentPage > 1) {
           toView.previousPage = currentPage - 1
         }
-
-        toView.nextPage = currentPage + 1
 
         // Get event data
         const eventRequest = await fetch(`${process.env.AUTH_URL}/api/v4/users/${userResponse.id}/events?per_page=50&page=${currentPage}`, {
@@ -83,7 +86,9 @@ export class HomeController {
           events.push(slimmedEvent)
         })
 
+        // Set events to the view.
         toView.events = events
+        toView.hits = events.length
       }
 
       res.render('index', { viewData: toView })
