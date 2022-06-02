@@ -24,12 +24,11 @@ const main = async () => {
   app.use(helmet.contentSecurityPolicy({
     directives: {
       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+      'img-src': ["'self'", 'https://gitlab.lnu.se/', 'https://secure.gravatar.com'],
       'style-src': ["'self'", 'https://fonts.googleapis.com/'],
       'font-src': ["'self'", 'https://fonts.gstatic.com']
     }
   }))
-
-  // TODO: Add cors?
 
   app.use(express.static(join(fullDirectory, '..', 'public')))
 
@@ -38,9 +37,6 @@ const main = async () => {
   app.engine('html', hbs.__express)
   app.set('views', join(fullDirectory, 'views'))
   hbs.registerPartials(fullDirectory + '/views/partials')
-
-  // Enable urlencoding for register/login users.
-  // app.use(express.urlencoded({ extended: false }))
 
   // Enable application/json.
   app.use(express.json())
@@ -65,7 +61,7 @@ const main = async () => {
 
   app.use(session(sessionOptions))
 
-  // // Set baseURL to access it in views
+  // Set baseURL to access it in views
   app.use((req, res, next) => {
     res.locals.baseURL = baseURL
     //   res.locals.session = req.session

@@ -20,7 +20,52 @@ export class HomeController {
       }
 
       if (req.session.token) {
-        toView.session = 'There is a session!'
+        const token = req.session.token
+
+        // Get user data.
+        const userRequest = await fetch(`${process.env.AUTH_URL}/api/v4/user?access_token=${token}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        const userResponse = await userRequest.json()
+
+        const user = {
+          name: userResponse.name,
+          username: userResponse.username,
+          id: userResponse.id,
+          email: userResponse.email,
+          last_activity_on: userResponse.last_activity_on,
+          avatar: userResponse.avatar_url
+        }
+
+        toView.user = user
+
+        // Get event data.
+        const eventRequest = await fetch(`${process.env.AUTH_URL}/api/v4/users/${userResponse.id}/events?page=1&order_by="created_at"&sort=desc&access_token=${token}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        const eventResponse = await eventRequest.json()
+
+        const events = []
+
+        eventResponse.forEach(event => {
+          const slimmedEvent = {
+            action_name: event.action_name,
+            event_id: event.id,
+            project_id: event.project_id,
+            created_at: event.created_at.split('T')[0]
+          }
+          console.log(event)
+          events.push(slimmedEvent)
+        })
+
+        toView.events = events
+        console.log(toView)
       }
 
       res.render('index', { viewData: toView })

@@ -9,17 +9,34 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <main class="center">
-        <h1>{{viewData.header}}</h1>
+    <main>
+        <h1 class="center">{{viewData.header}}</h1>
 
-        {{#if viewData.session}}
+        {{#if viewData.user}}
             <section>
-                <a id="logoutButton" href="/logout">Logout</a>
+                <h1 class="center">Profile</h1>
+                    <img src="{{viewData.user.avatar}}" alt="Profile picture">
+                    <ul>
+                        <li>Name: {{viewData.user.name}}</li>
+                        <li>Username: {{viewData.user.username}}</li>
+                        <li>Email: {{viewData.user.email}}</li>
+                        <li>Last Activity: {{viewData.user.last_activity_on}}</li>
+                    </ul>
+                <h1 class="center">Activities</h1>
+                {{#each viewData.events}}
+                    <h2>Activity</h2>
+                    <ul>
+                        <li>Action: {{action_name}}</li>
+                        <li>Date: {{created_at}}</li>
+                        <li>Id: {{event_id}}</li>
+                        <li>Project: {{project_id}}</li>
+                    </ul>
+                {{/each}}
             </section>
-            <p>{{viewData.session}}</p>
+            <a id="logoutButton" href="/logout" class="center">Logout</a>
         {{else}}
             <section>
-                <a id="loginButton" href="/login">Login</a>
+                <a id="loginButton" href="/login" class="center">Login</a>
             </section>
         {{/if}}
     </main>
