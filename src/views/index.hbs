@@ -12,10 +12,16 @@
     <main class="center">
         <h1>{{viewData.header}}</h1>
 
-        <section>
-            <a id="loginButton" href="/login">Login</a>
-        </section>
-
+        {{#if viewData.session}}
+            <section>
+                <a id="logoutButton" href="/logout">Logout</a>
+            </section>
+            <p>{{viewData.session}}</p>
+        {{else}}
+            <section>
+                <a id="loginButton" href="/login">Login</a>
+            </section>
+        {{/if}}
     </main>
 
 </body>

@@ -15,7 +15,15 @@ export class HomeController {
    */
   async home (req, res, next) {
     try {
-      res.render('index', { viewData: { header: 'My Activities App' } })
+      const toView = {
+        header: 'My Activities App'
+      }
+
+      if (req.session.token) {
+        toView.session = 'There is a session!'
+      }
+
+      res.render('index', { viewData: toView })
     } catch (error) {
       next(error)
     }
@@ -47,6 +55,45 @@ export class HomeController {
 
         res.redirect(`${process.env.AUTH_URL}/oauth/authorize?${query}`)
       })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  /**
+   * Perform a logout.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next-middleware function.
+   */
+  async logout (req, res, next) {
+    try {
+      // Make sure there is a token to revoke.
+      if (!req.session.token) {
+        return next(createHttpError(404, 'Not Found'))
+      }
+
+      const params = {
+        client_id: `${process.env.CLIENT_ID}`,
+        client_secret: `${process.env.CLIENT_SECRET}`,
+        token: req.session.token
+      }
+
+      const query = new URLSearchParams(params)
+
+      // Revoke token on gitlab.
+      await fetch(`${process.env.AUTH_URL}/oauth/revoke?${query}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      // Destroy the session to logout the user.
+      req.session.destroy()
+
+      res.redirect('/')
     } catch (error) {
       next(error)
     }

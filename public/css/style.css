@@ -171,7 +171,7 @@ input {
 
 /*  -------- OAuth   --------  */
 
-#loginButton {
+#loginButton, #logoutButton {
     display: block;
     width: 100%;
     background-color: #fafafa;
@@ -183,15 +183,24 @@ input {
     text-decoration: none;
 }
 
-#loginButton:hover {
+#loginButton:hover, #logoutButton:hover {
     background-color: #99d20856;
     color: #000000;
     cursor: pointer;
 }
 
-#loginButton:focus {
+#loginButton:focus, #logoutButton:focus {
     background-color: #99d2088a;
     color: #000000;
+}
+
+#logoutButton:hover {
+    background-color: #ff444497;
+    color: #FFF;
+}
+
+#logoutButton:focus {
+    background-color: #d208608a;
 }
 
 /*  -------- Images   --------  */
